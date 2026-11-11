@@ -72,8 +72,6 @@ pipeline {
             }
         }
     }
-    //f75aa6ac89384e5cb8e1d29a8f307ba5
-    //sqa_09ce6de6194ab5b5c613e11ff4146a5af043f06f sonarqube
     post {
         always {
             archiveArtifacts artifacts: 'trivy*.txt', allowEmptyArchive: true
