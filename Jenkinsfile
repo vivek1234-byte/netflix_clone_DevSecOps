@@ -75,11 +75,6 @@ pipeline {
     post {
         always {
             archiveArtifacts artifacts: 'trivy*.txt', allowEmptyArchive: true
-            emailext attachLog: true,
-                subject: "${env.JOB_NAME} #${env.BUILD_NUMBER}: ${currentBuild.currentResult}",
-                body: "Project: ${env.JOB_NAME}<br/>Build: ${env.BUILD_NUMBER}<br/>Result: ${currentBuild.currentResult}<br/>URL: ${env.BUILD_URL}",
-                to: 'vivek5411nkbps@gmail.com',
-                attachmentsPattern: 'trivyfs.txt,trivyimage.txt'
         }
     }
 }
