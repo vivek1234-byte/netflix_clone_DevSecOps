@@ -19,3 +19,15 @@ export async function fetchFromTMDB(path) {
   const data = await res.json();
   return data.results;
 }
+export async function fetchTrailer(item) {
+  // trending items say movie/tv; otherwise TV shows have first_air_date
+  const type = item.media_type || (item.first_air_date ? 'tv' : 'movie');
+  const res = await fetch(`${BASE_URL}/${type}/${item.id}/videos?api_key=${API_KEY}&language=en-US`);
+  if (!res.ok) return null;
+  const data = await res.json();
+  const videos = data.results || [];
+  const trailer =
+    videos.find((v) => v.site === 'YouTube' && v.type === 'Trailer') ||
+    videos.find((v) => v.site === 'YouTube');
+  return trailer ? trailer.key : null;
+}
